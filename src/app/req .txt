@@ -1,0 +1,38 @@
+krispy kreme app
+
+take orders, no ui reqs
+git hub needed
+mongo db atlas needed (https://www.mongodb.com/cloud/atlas/register)
+use mui for ui (https://mui.com/material-ui/all-components/)
+Sessions to store info and validate page access
+
+once each feature is added, update on live server hosting (vercel.com) from github
+
+
+User Accounts
+Manager - log in, view order stats, total order cost and num orders
+Customer - select products, add to cart, checkout with order review and present total order
+
+DB tables -
+user account, orders, products
+
+Pages -
+manager - see list of orders, show ordered products, id, time ordered and user
+
+customer - display products with add to cart, with title, description, image, price. Weather from weather api at top
+
+register - register new user
+
+login - log in and send user to correct page (manager or customer)
+
+view cart - see products
+
+checkout - confirm order, send to db and email the user to confirm
+
+Deliverables -
+Upload to github
+zip project - node-modules folder
+export mongodb database
+url to vercel in text file
+
+
