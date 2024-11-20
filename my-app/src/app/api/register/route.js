@@ -8,15 +8,15 @@ export async function GET(req, res) {
     const name = searchParams.get("name")
     const email = searchParams.get('email')
     const pass = searchParams.get('pass')
-    const airCode = searchParams.get('airCode')
-    const manager = searchParams.get('manager')
+    const eircode = searchParams.get('eircode')
+    const tel = searchParams.get('tel')
+    const manager = false;
     console.log(name);
     console.log(email);
     console.log(pass);
-    console.log(airCode);
-    console.log(manager);
+    console.log(eircode);
     const { MongoClient } = require('mongodb');
-    const url = "mongodb+srv://b00152842:iWSVCle4kfbnFsUg@threadud.ga2og.mongodb.net/?retryWrites=true&w=majority&appName=ThreadUD";
+    const url = "mongodb+srv://b00152842:kWDcbYMGg9IOfpEt@threadud.ga2og.mongodb.net/?retryWrites=true&w=majority&appName=ThreadUD";
     const client = new MongoClient(url);
     const dbName = 'RichWeb';
     await client.connect();
@@ -25,12 +25,13 @@ export async function GET(req, res) {
     const collection = db.collection('User');
     const findResult = await collection.find({ email : email}).toArray();
     console.log('Found documents =>', findResult);
-    let exists = false
-    if(findResult.length >0 ){
-        exists = true;
+    if(findResult.length > 0){
         console.log("userAlready exists")
         return Response.json({ "data":"invalid" })
     }
-    const input = await collection.insertOne({ email : email, password : pass, name : name, aircode : airCode, manager : manager });
-    console.log(`A document was inserted with the _id: ${input.insertedId}`);
+    else{
+        const input = await collection.insertOne({ email : email, password : pass, name : name, eircode : eircode, manager : manager, tel : tel });
+        console.log(`A document was inserted with the _id: ${input.insertedId}`);
+        return Response.json({ "data":"valid" })
+    }
 }

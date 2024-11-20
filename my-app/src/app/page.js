@@ -8,28 +8,58 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import {useState} from 'react';
+import Products from './products/page.js';
+import Login from './login/page.js';
+import Register from './register/page.js';
+import Manager from './manager/page.js';
+import Cart from './cart/page.js';
+import Checkout from './checkout/page.js';
 
 export default function MyApp() {
-  const [showLogin, setShowLogin] = useState(false);
-  const [showDash, setShowDash] = useState(false);
-  const [showFirstPage, setShowFirstPage] = useState(true);
-
+  const [showLogin, setShowLogin] = useState(true);
+  const [showProducts, setShowProducts] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+  const [showManager, setShowManager] = useState(false);
+  const [showCart, setShowCart] = useState(false);
+  const [showCheckout, setShowCheckout] = useState(false);
+  let loggedIn = false;
+  	
+  function setPagesFalse(){
+    setShowLogin(false);
+    setShowProducts(false);
+    setShowRegister(false);
+    setShowManager(false);
+    setShowCart(false);
+    setShowCheckout(false);
+  }
   function runShowLogin(){
-    setShowFirstPage(false)
+    setPagesFalse();
     setShowLogin(true);
-    setShowDash(false)
   }
 
-  function runShowDash(){
-    setShowFirstPage(false);
-    setShowLogin(false);
-    setShowDash(true);
+  function runShowProducts(){
+    setPagesFalse();
+    setShowProducts(true);
+  }
+  
+  function runShowRegister(){
+    setPagesFalse();
+    setShowRegister(true);
   }
 
-  function runShowFirst(){
-    setShowFirstPage(true);
-    setShowLogin(false);
-    setShowDash(false)
+  function runShowManager(){
+    setPagesFalse();
+    setShowManager(true);
+  }
+
+  function runShowCart(){
+    setPagesFalse();
+    setShowCart(true);
+  }
+
+  function runShowCheckout(){
+    setPagesFalse();
+    setShowCheckout(true);
   }
 
   async function runDBCallAsync(url) {
@@ -56,32 +86,51 @@ export default function MyApp() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              MyApp
+              Krispy Kreme
             </Typography>
-            <Button color="inherit" onClick={runShowFirst}>First</Button>
-            <Button color="inherit" onClick={runShowLogin}>Login</Button>
-            <Button color="inherit" onClick={runShowDash}>Dashboard</Button>
+            {!loggedIn &&
+              <Box>
+              <Button color="inherit" onClick={runShowLogin}>Login</Button>
+              <Button color="inherit" onClick={runShowRegister}>Register</Button>
+              </Box>
+            }
+            {loggedIn &&
+              <Box>
+              <Button color="inherit" onClick={runShowProducts}>Products</Button>
+              <Button color="inherit" onClick={runShowCart}>Cart</Button>
+              <Button color="inherit" onClick={runShowCheckout}>Checkout</Button>
+              </Box>
+            }
+            {loggedIn /* and manager = true*/ &&
+              <Box>
+              <Button color="inherit" onClick={runShowManager}>Manager</Button>
+              </Box>
+            }
           </Toolbar>
         </AppBar>
 
-        {showFirstPage &&
-            <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
-              This is a very basic application. This has a bar across the top and this box!
-              How this apps work is by creating two boxes. They are hidden in the background of the page.
-              It is only when a user clicks one of the buttons, we change the "state" from hidden (false) to show (true)
-            </Box>
-        }
-
         {showLogin &&
-            <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
-              This box is hidden until you click the button!. Imagine this is one page in your app!
-            </Box>
+            Login()
         }
 
-        {showDash &&
-            <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
-              Let's pretend this is the dashboard!
-            </Box>
+        {showProducts &&
+            Products()
+        }
+
+        {showRegister &&
+            Register()
+        }
+
+        {showManager &&
+            Manager()
+        }
+
+        {showCart &&
+            Cart()
+        }
+
+        {showCheckout &&
+            Checkout()
         }
       </Box>
   );

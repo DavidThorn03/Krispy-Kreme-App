@@ -6,14 +6,14 @@ export async function GET(req, res) {
     console.log(email);
     console.log(pass);
     const { MongoClient } = require('mongodb');
-    const url = "mongodb+srv://b00152842:iWSVCle4kfbnFsUg@threadud.ga2og.mongodb.net/?retryWrites=true&w=majority&appName=ThreadUD";
+    const url = "mongodb+srv://b00152842:kWDcbYMGg9IOfpEt@threadud.ga2og.mongodb.net/?retryWrites=true&w=majority&appName=ThreadUD";
     const client = new MongoClient(url);
     const dbName = 'RichWeb';
     await client.connect();
     console.log('Connected successfully to server');
     const db = client.db(dbName);
     const collection = db.collection('User');
-    const findResult = await collection.find({ username : email}).toArray();
+    const findResult = await collection.find({ email : email, password : pass}).toArray();
     console.log('Found documents =>', findResult);
     let valid = false
     if(findResult.length >0 ){
@@ -23,5 +23,5 @@ export async function GET(req, res) {
         valid = false;
         console.log("login invalid")
     }
-    return Response.json({ "data":"" + valid + ""})
+    return Response.json(findResult);
 }

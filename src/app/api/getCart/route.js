@@ -12,16 +12,8 @@ export async function GET(req, res) {
     await client.connect();
     console.log('Connected successfully to server');
     const db = client.db(dbName);
-    const collection = db.collection('User');
+    const collection = db.collection('ShoppingCart');
     const findResult = await collection.find({ username : email}).toArray();
     console.log('Found documents =>', findResult);
-    let valid = false
-    if(findResult.length > 0){
-        valid = true;
-        console.log("login valid")
-    } else {
-        valid = false;
-        console.log("login invalid")
-    }
     return Response.json(findResult);
 }
