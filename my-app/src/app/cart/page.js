@@ -17,16 +17,27 @@ import { green, purple } from '@mui/material/colors';
 import { useState, useEffect } from 'react';
 
 export default function Manager() {
+    const [user, setUser] = useState(null)
     const [data, setData] = useState()
     useEffect(() => {
-        const user = "Dave" // get user from session
-        fetch(`http://localhost:3000/api/getCart?user=${user}`)
+        fetch(`http://localhost:3000/api/getData`)
+            .then((res) => res.json())
+            .then((user) => {
+                setUser(user)
+            })
+    }, [])
+    useEffect(() => {
+        fetch(`http://localhost:3000/api/getCart?user=${user.email}`)
             .then((res) => res.json())
             .then((data) => {
                 setData(data)
             })
     }, [])
     if (!data) return <p>Loading</p>
+    let total = 0;
+    for (let i = 0; i < data.length; i++) {
+        total += data[i].price;
+    }
     const theme = createTheme({
         palette: {
             secondary: {
@@ -38,8 +49,8 @@ export default function Manager() {
         console.log("handling submit");
         const products = data.map((item) => item.product)
         const user = "Dave"; // get user from session
-        runDBCallAsync(`http://localhost:3000/api/placeOrder?user=${user}&products=${JSON.stringify(products)}&dateTime=${new Date().toISOString()}`)
-        runDBCallAsync(`http://localhost:3000/api/removeCart?user=${user}`)
+        runDBCallAsync(`http://localhost:3000/api/placeOrder?user=${user.email}&products=${JSON.stringify(products)}&dateTime=${new Date().toISOString()}`)
+        runDBCallAsync(`http://localhost:3000/api/removeCart?user=${user.email}`)
     }; // end handle submit
     async function runDBCallAsync(url) {
         const res = await fetch(url);
@@ -64,6 +75,7 @@ export default function Manager() {
                             </div>
                         ))
                     }
+                    Order Total: {total}
                     <Button
                         type="submit"
                         fullWidth

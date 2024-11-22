@@ -19,6 +19,7 @@ import { useState, useEffect } from 'react';
 export default function Manager() {
     const [data, setData] = useState()
     const [weather, setWeatherData] = useState(null)
+    const [user, setUser] = useState(null)
     useEffect(() => {
         fetch('http://localhost:3000/api/getWeather')
             .then((res) => res.json())
@@ -29,6 +30,11 @@ export default function Manager() {
             .then((res) => res.json())
             .then((data) => {
                 setData(data)
+            })
+        fetch('http://localhost:3000/api/getData')
+            .then((res) => res.json())
+            .then((user) => {
+                setUser(user)
             })
     }, [])
     if (!data) return <p>Loading</p>
@@ -41,11 +47,10 @@ export default function Manager() {
     });
     if (!weather) return <p>No weather</p>
     const addToCart = (product, price) => {
-        const user = "Dave" //get from session
-        console.log("Username is: " + user)
+        console.log("Email is: " + user.email)
         console.log("Product is: " + product)
         console.log("Price is: " + price)
-        runDBCallAsync(`http://localhost:3000/api/addToCart?user=${user}&product=${product}&price=${price}`)
+        runDBCallAsync(`http://localhost:3000/api/addToCart?user=${user.email}&product=${product}&price=${price}`)
     }; // end handle submit
     async function runDBCallAsync(url) {
         const res = await fetch(url);

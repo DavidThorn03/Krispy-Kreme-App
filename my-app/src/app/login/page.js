@@ -8,6 +8,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+
 export default function Home() {
     const handleSubmit = (event) => {
         console.log("handling submit");
@@ -18,13 +19,14 @@ export default function Home() {
         let pass = data.get('pass')
         console.log("Sent email:" + email)
         console.log("Sent pass:" + pass)
-        runDBCallAsync(`http://localhost:3000/api/login?email=${email}&pass=${pass}`)
+        const user = runDBCallAsync(`http://localhost:3000/api/login?email=${email}&pass=${pass}`)
     }; // end handle submit
     async function runDBCallAsync(url) {
         const res = await fetch(url);
         const data = await res.json();
-        if(data.data == "valid"){
+        if(data != null){
             console.log("login is valid!")
+            fetch(`http://localhost:3000/api/saveData?email=${data.email}&manager=${data.manager}`)
         } else {
             console.log("not valid ")
         }

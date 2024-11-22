@@ -13,7 +13,7 @@ export async function GET(req, res) {
     console.log('Connected successfully to server');
     const db = client.db(dbName);
     const collection = db.collection('User');
-    const findResult = await collection.find({ email : email, password : pass}).toArray();
+    const findResult = await collection.findOne({ email : email, password : pass});
     console.log('Found documents =>', findResult);
     let valid = false
     if(findResult.length >0 ){
