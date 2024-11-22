@@ -51,7 +51,7 @@ export default function Home() {
                         required
                         fullWidth
                         name="pass"
-                        label="Pass"
+                        label="Password"
                         type="pass"
                         id="pass"
                         autoComplete="current-password"

@@ -83,7 +83,7 @@ export default function Manager() {
                                 <br></br>
                                 {item.image}
                                 <br></br>
-                                <Button variant="outlined" onClick={addToCart(item.title, item.price)}> Add to cart </Button>
+                                <Button variant="outlined" onClick={() => addToCart(item.title, item.price)}> Add to cart </Button>
                             </div>
                         ))
                     }

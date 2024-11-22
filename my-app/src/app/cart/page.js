@@ -27,16 +27,19 @@ export default function Manager() {
             })
     }, [])
     useEffect(() => {
-        fetch(`http://localhost:3000/api/getCart?user=${user.email}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setData(data)
-            })
-    }, [])
+        if (user) {
+            // Ensure `user` is defined before fetching cart
+            fetch(`http://localhost:3000/api/getCart?user=${user.email}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    setData(data);
+                });
+        }
+    }, [user]);
     if (!data) return <p>Loading</p>
     let total = 0;
     for (let i = 0; i < data.length; i++) {
-        total += data[i].price;
+        total += Number(data[i].price);
     }
     const theme = createTheme({
         palette: {
@@ -48,7 +51,6 @@ export default function Manager() {
     const handleSubmit = () => {
         console.log("handling submit");
         const products = data.map((item) => item.product)
-        const user = "Dave"; // get user from session
         runDBCallAsync(`http://localhost:3000/api/placeOrder?user=${user.email}&products=${JSON.stringify(products)}&dateTime=${new Date().toISOString()}`)
         runDBCallAsync(`http://localhost:3000/api/removeCart?user=${user.email}`)
     }; // end handle submit
@@ -69,9 +71,9 @@ export default function Manager() {
                     {
                         data.map((item, i) => (
                             <div style={{padding: '20px'}} key={i}>
-                                {item.user}
-                                <br></br>
                                 {item.product}
+                                <br/>
+                                Price: {item.price}
                             </div>
                         ))
                     }

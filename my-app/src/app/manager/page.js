@@ -43,7 +43,13 @@ export default function Manager() {
                             <div style={{padding: '20px'}} key={i}>
                                 {item.user}
                                 <br></br>
-                                {item.product}
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                                    {item.products.map((product, i) => (
+                                        <div key={i}>
+                                            {product}
+                                        </div>
+                                    ))}
+                                </div>
                                 <br></br>
                                 {item.dateTime}
                             </div>
