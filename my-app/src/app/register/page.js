@@ -1,13 +1,19 @@
 'use client';
+'use client'
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import Link from 'next/link'
+import { WindowOutlined } from '@mui/icons-material';
+
 export default function Register() {
     const handleSubmit = (event) => {
         console.log("handling submit");
@@ -28,17 +34,36 @@ export default function Register() {
     }; // end handle submit
     async function runDBCallAsync(url, email) {
         const res = await fetch(url);
-        const data = await res;
-        if(data.data== "valid"){
-            manager = false;
+        const data = await res.json();
+        if(data.data == "valid"){
+            let manager = false;
             console.log("register is valid!")
             fetch(`http://localhost:3000/api/saveData?email=${email}&manager=${manager}`)
+            window.location="/products"
         } else {
             console.log("not valid")
         }
     }
     return (
-        <Container maxWidth="sm">
+        <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Krispy Kreme
+            </Typography>
+            <Link href="/register">Register</Link> - 
+            <Link href="/">Login</Link>
+          </Toolbar>
+        </AppBar>
             <Box sx={{ height: '100vh' }} >
                 <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                     <TextField
@@ -102,7 +127,7 @@ export default function Register() {
                     </Button>
                 </Box>
             </Box>
-        </Container>
+        </Box>
     ); // end return
 }
 

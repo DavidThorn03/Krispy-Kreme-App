@@ -1,20 +1,15 @@
 'use client';
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
+import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import {useState, useEffect} from 'react';
 import Container from '@mui/material/Container';
-import {ThemeProvider } from '@mui/material/styles';
-import { createTheme } from '@mui/material/styles';
-import { green, purple } from '@mui/material/colors';
-import { useState, useEffect } from 'react';
+import Link from 'next/link'
 
 export default function Manager() {
     const [data, setData] = useState()
@@ -26,15 +21,27 @@ export default function Manager() {
             })
     }, [])
     if (!data) return <p>Loading</p>
-    const theme = createTheme({
-        palette: {
-            secondary: {
-                main: green[500],
-            },
-        },
-    });
+    
     return (
-        <ThemeProvider theme={theme}>
+        <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Krispy Kreme
+            </Typography>
+            <Link href="/products">Manager</Link> - 
+            <Link href="/">Login</Link>
+          </Toolbar>
+        </AppBar>
             <Container component="main" maxWidth="xs">
                 <div style={{fontSize: '40px'}} > Orders</div>
                 <div>
@@ -57,6 +64,6 @@ export default function Manager() {
                     }
                 </div>
             </Container>
-        </ThemeProvider>
+        </Box>
     );
 }

@@ -1,25 +1,23 @@
 'use client';
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
+import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import {useState, useEffect} from 'react';
 import Container from '@mui/material/Container';
-import {ThemeProvider } from '@mui/material/styles';
-import { createTheme } from '@mui/material/styles';
-import { green, purple } from '@mui/material/colors';
-import { useState, useEffect } from 'react';
+import Link from 'next/link'
 
-export default function Manager() {
+
+export default function Product() {
     const [data, setData] = useState()
     const [weather, setWeatherData] = useState(null)
     const [user, setUser] = useState(null)
+   
+
     useEffect(() => {
         fetch('http://localhost:3000/api/getWeather')
             .then((res) => res.json())
@@ -38,16 +36,10 @@ export default function Manager() {
             })
     }, [])
     if (!data) return <p>Loading</p>
-    const theme = createTheme({
-        palette: {
-            secondary: {
-                main: green[500],
-            },
-        },
-    });
+   
     if (!weather) return <p>No weather</p>
     const addToCart = (product, price) => {
-        console.log("Email is: " + user.email)
+        console.log("Username is: " + user)
         console.log("Product is: " + product)
         console.log("Price is: " + price)
         runDBCallAsync(`http://localhost:3000/api/addToCart?user=${user.email}&product=${product}&price=${price}`)
@@ -62,8 +54,29 @@ export default function Manager() {
         }
     }
     return (
-        <ThemeProvider theme={theme}>
-            Today's temperature: {JSON.stringify(weather.temp)}°C
+
+        <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Krispy Kreme
+            </Typography>
+            <Link href="/products">Products</Link> - 
+            <Link href="/cart">Cart</Link> -
+            <Link href="/">Login</Link>
+          </Toolbar>
+        </AppBar>
+
+        Today's temperature: {JSON.stringify(weather.temp)}°C
             <Container component="main" maxWidth="xs">
                 <div style={{fontSize: '40px'}} > Products</div>
                 <div>
@@ -89,6 +102,11 @@ export default function Manager() {
                     }
                 </div>
             </Container>
-        </ThemeProvider>
+      </Box>
+        
+   
+
+         
+      
     );
 }

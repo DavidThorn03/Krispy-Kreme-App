@@ -8,67 +8,46 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import {useState} from 'react';
-import Products from './products/page.js';
-import Login from './login/page.js';
-import Register from './register/page.js';
-import Manager from './manager/page.js';
-import Cart from './cart/page.js';
-import Checkout from './checkout/page.js';
-
+import TextField from '@mui/material/TextField';
+import Link from 'next/link'
+import { WindowOutlined } from '@mui/icons-material';
+ 
 export default function MyApp() {
-  const [showLogin, setShowLogin] = useState(true);
-  const [showProducts, setShowProducts] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
-  const [showManager, setShowManager] = useState(false);
-  const [showCart, setShowCart] = useState(false);
-  const [showCheckout, setShowCheckout] = useState(false);
-  let loggedIn = false;
-  	
-  function setPagesFalse(){
-    setShowLogin(false);
-    setShowProducts(false);
-    setShowRegister(false);
-    setShowManager(false);
-    setShowCart(false);
-    setShowCheckout(false);
-  }
-  function runShowLogin(){
-    setPagesFalse();
-    setShowLogin(true);
-  }
+  const [errorMessage, setErrorMessage] = useState("");
+ 
+    const handleSubmit = (event) => {
+   	 
+   	 console.log("handling submit");
 
-  function runShowProducts(){
-    setPagesFalse();
-    setShowProducts(true);
-  }
-  
-  function runShowRegister(){
-    setPagesFalse();
-    setShowRegister(true);
-  }
+	 event.preventDefault();
+ 
+   	 const data = new FormData(event.currentTarget);
 
-  function runShowManager(){
-    setPagesFalse();
-    setShowManager(true);
-  }
+	let email = data.get('email')
+   	let pass = data.get('pass')
 
-  function runShowCart(){
-    setPagesFalse();
-    setShowCart(true);
-  }
+	console.log("Sent email:" + email)
+	console.log("Sent pass:" + pass)
+	runDBCallAsync(`http://localhost:3000/api/login?email=${email}&pass=${pass}`)
+  }; 
 
-  function runShowCheckout(){
-    setPagesFalse();
-    setShowCheckout(true);
-  }
-
-  async function runDBCallAsync(url) {
+  async function runDBCallAsync(url, email) {
     const res = await fetch(url);
     const data = await res.json();
-    if(data.data== "valid"){
-      console.log("login is valid!")
+    if(data.length > 0){
+      console.log("login is valid")
+      await fetch (`http://localhost:3000/api/saveData?email=${data[0].email}&manager=${data[0].manager}`);
+      if(data[0].manager){
+        console.log("manager")
+        window.location="/manager"
+      }
+      else{
+      console.log("saved data")
+      window.location="/products"
+      }
     } else {
-      console.log("not valid ")
+      console.log("not valid")
+      setErrorMessage("Invalid login")
     }
   }
 
@@ -88,50 +67,58 @@ export default function MyApp() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Krispy Kreme
             </Typography>
-            {!loggedIn &&
-              <Box>
-              <Button color="inherit" onClick={runShowLogin}>Login</Button>
-              <Button color="inherit" onClick={runShowRegister}>Register</Button>
-              </Box>
-            }
-            {loggedIn &&
-              <Box>
-              <Button color="inherit" onClick={runShowProducts}>Products</Button>
-              <Button color="inherit" onClick={runShowCart}>Cart</Button>
-              <Button color="inherit" onClick={runShowCheckout}>Checkout</Button>
-              </Box>
-            }
-            {loggedIn /* and manager = true*/ &&
-              <Box>
-              <Button color="inherit" onClick={runShowManager}>Manager</Button>
-              </Box>
-            }
+            <Link href="/register">Register</Link> - 
+            <Link href="/">Login</Link>
           </Toolbar>
         </AppBar>
 
-        {showLogin &&
-            Login()
-        }
 
-        {showProducts &&
-            Products()
-        }
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                        textcolor="white"
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="pass"
+                        label="Pass"
+                        type="pass"
+                        id="pass"
+                        autoComplete="current-password"
+                    />
 
-        {showRegister &&
-            Register()
-        }
 
-        {showManager &&
-            Manager()
-        }
+        <Button
+        	type="submit"
+        	fullWidth
+        	variant="contained"
+        	sx={{ mt: 3, mb: 2 }}
+      	>
+       	Log in
+      	</Button>
+        {errorMessage && (
+          <Typography variant="body1" color="error" sx={{ mt: 2 }}>
+            {errorMessage}
+          </Typography>
+        )}
 
-        {showCart &&
-            Cart()
-        }
 
-        {showCheckout &&
-            Checkout()
-        }
+
+</Box>
+
+
+
+
       </Box>
   );
 }

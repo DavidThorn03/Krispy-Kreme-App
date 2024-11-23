@@ -13,5 +13,5 @@ export async function GET(req, res) {
 
   console.log("data saved");
 
-  return Response.json({});
+  return Response.json({email: email, manager: manager});
 }
