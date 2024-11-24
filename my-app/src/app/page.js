@@ -33,7 +33,7 @@ export default function MyApp() {
 
   async function runDBCallAsync(url, email) {
     const res = await fetch(url);
-    const data = await res;
+    const data = await res.json();
     if(data.length > 0){
       console.log("login is valid")
       await fetch (`/api/saveData?email=${data[0].email}&manager=${data[0].manager}`);
