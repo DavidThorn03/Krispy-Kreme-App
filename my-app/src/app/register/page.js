@@ -30,7 +30,7 @@ export default function Register() {
         console.log("Sent pass:" + pass)
         console.log("Sent tel:" + tel)
         console.log("Sent eircode:" + eircode)
-        runDBCallAsync(`http://localhost:3000/api/register?name=${name}&email=${email}&pass=${pass}&tel=${tel}&eircode=${eircode}`, email)
+        runDBCallAsync(`/api/register?name=${name}&email=${email}&pass=${pass}&tel=${tel}&eircode=${eircode}`, email)
     }; // end handle submit
     async function runDBCallAsync(url, email) {
         const res = await fetch(url);
@@ -38,7 +38,7 @@ export default function Register() {
         if(data.data == "valid"){
             let manager = false;
             console.log("register is valid!")
-            fetch(`http://localhost:3000/api/saveData?email=${email}&manager=${manager}`)
+            fetch(`/api/saveData?email=${email}&manager=${manager}`)
             window.location="/products"
         } else {
             console.log("not valid")

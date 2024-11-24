@@ -7,7 +7,8 @@ export async function GET(req, res) {
         const user = searchParams.get('user');
         console.log(user);
         const { MongoClient } = require('mongodb');
-        const url = "mongodb+srv://b00152842:kWDcbYMGg9IOfpEt@threadud.ga2og.mongodb.net/?retryWrites=true&w=majority&appName=ThreadUD";
+        const url = process.env.DB_ADDRESS
+
         const client = new MongoClient(url);
         const dbName = 'RichWeb'; // database name
         await client.connect();

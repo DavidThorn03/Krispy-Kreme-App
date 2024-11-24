@@ -10,6 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {useState, useEffect} from 'react';
 import Container from '@mui/material/Container';
 import Link from 'next/link'
+import Image from 'next/image'
 
 
 export default function Product() {
@@ -19,17 +20,17 @@ export default function Product() {
    
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/getWeather')
+        fetch('/api/getWeather')
             .then((res) => res.json())
             .then((weather) => {
                 setWeatherData(weather)
             })
-        fetch('http://localhost:3000/api/getProducts')
+        fetch('/api/getProducts')
             .then((res) => res.json())
             .then((data) => {
                 setData(data)
             })
-        fetch('http://localhost:3000/api/getData')
+        fetch('/api/getData')
             .then((res) => res.json())
             .then((user) => {
                 setUser(user)
@@ -42,7 +43,7 @@ export default function Product() {
         console.log("Username is: " + user)
         console.log("Product is: " + product)
         console.log("Price is: " + price)
-        runDBCallAsync(`http://localhost:3000/api/addToCart?user=${user.email}&product=${product}&price=${price}`)
+        runDBCallAsync(`/api/addToCart?user=${user.email}&product=${product}&price=${price}`)
     }; // end handle submit
     async function runDBCallAsync(url) {
         const res = await fetch(url);
@@ -94,7 +95,7 @@ export default function Product() {
                                 Price: €
                                 {item.price}
                                 <br></br>
-                                {item.image}
+                                <Image src="/images/box.jpg" alt="Jam Image" width={500} height={300} />
                                 <br></br>
                                 <Button variant="outlined" onClick={() => addToCart(item.title, item.price)}> Add to cart </Button>
                             </div>
@@ -103,10 +104,5 @@ export default function Product() {
                 </div>
             </Container>
       </Box>
-        
-   
-
-         
-      
     );
 }

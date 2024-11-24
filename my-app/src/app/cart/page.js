@@ -16,7 +16,7 @@ export default function Cart() {
     const [user, setUser] = useState(null)
     const [data, setData] = useState()
     useEffect(() => {
-        fetch(`http://localhost:3000/api/getData`)
+        fetch(`/api/getData`)
             .then((res) => res.json())
             .then((user) => {
                 setUser(user)
@@ -24,7 +24,7 @@ export default function Cart() {
     }, [])
     useEffect(() => {
         if (user) {
-            fetch(`http://localhost:3000/api/getCart?user=${user.email}`)
+            fetch(`/api/getCart?user=${user.email}`)
                 .then((res) => res.json())
                 .then((data) => {
                     setData(data);
@@ -39,8 +39,8 @@ export default function Cart() {
     const handleSubmit = () => {
         console.log("handling submit");
         const products = data.map((item) => item.product)
-        runDBCallAsync(`http://localhost:3000/api/placeOrder?user=${user.email}&products=${JSON.stringify(products)}&dateTime=${new Date().toISOString()}`)
-        runDBCallAsync(`http://localhost:3000/api/removeCart?user=${user.email}`)
+        runDBCallAsync(`/api/placeOrder?user=${user.email}&products=${JSON.stringify(products)}&dateTime=${new Date().toISOString()}`)
+        runDBCallAsync(`/api/removeCart?user=${user.email}`)
     };
     async function runDBCallAsync(url) {
         const res = await fetch(url);
