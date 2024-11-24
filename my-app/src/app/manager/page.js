@@ -38,18 +38,33 @@ export default function Manager() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Krispy Kreme
             </Typography>
-            <Link href="/products">Manager</Link> - 
-            <Link href="/">Login</Link>
+            <Link href="/products" style={{padding: 10}}>Manager</Link>
+            <Link href="/" style={{padding: 10}}>Login</Link>
           </Toolbar>
         </AppBar>
-            <Container component="main" maxWidth="xs">
-                <div style={{fontSize: '40px'}} > Orders</div>
-                <div>
+            <Container component="main">
+                <div style={{fontSize: '40px', textAlign: 'center'}} > Orders</div>
+                <Box sx={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    colummWidth: '50%',
+                    gap: 2,
+                    center: 'true'
+                }}>
                     {
                         data.map((item, i) => (
-                            <div style={{padding: '20px'}} key={i}>
-                                {item.user}
+                            <Box sx={{
+                                border: 1,
+                                padding: 1,
+                                margin: 1,
+                                borderRadius: 1,
+                                backgroundColor: 'primary.main',
+                                color: 'white',
+                              }} key={i}>
+                                User: {item.user}
                                 <br></br>
+                                <br></br>
+                                Products: 
                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                                     {item.products.map((product, i) => (
                                         <div key={i}>
@@ -58,11 +73,11 @@ export default function Manager() {
                                     ))}
                                 </div>
                                 <br></br>
-                                {item.dateTime}
-                            </div>
+                                Date/Time: {item.dateTime}
+                            </Box>
                         ))
                     }
-                </div>
+                </Box>
             </Container>
         </Box>
     );

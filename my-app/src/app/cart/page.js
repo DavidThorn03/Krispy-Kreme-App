@@ -67,9 +67,9 @@ export default function Cart() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Krispy Kreme
             </Typography>
-            <Link href="/products">Products</Link> - 
-            <Link href="/cart">Cart</Link> -
-            <Link href="/">Login</Link>
+            <Link href="/products" style={{padding: 10}}>Products</Link>
+            <Link href="/cart" style={{padding: 10}}>Cart</Link>
+            <Link href="/" style={{padding: 10}}>Login</Link>
           </Toolbar>
         </AppBar>
             <Container component="main" maxWidth="xs">

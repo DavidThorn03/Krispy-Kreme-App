@@ -71,19 +71,34 @@ export default function Product() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Krispy Kreme
             </Typography>
-            <Link href="/products">Products</Link> - 
-            <Link href="/cart">Cart</Link> -
-            <Link href="/">Login</Link>
+            <Link href="/products" style={{padding: 10}}>Products</Link>
+            <Link href="/cart" style={{padding: 10}}>Cart</Link>
+            <Link href="/" style={{padding: 10}}>Login</Link>
           </Toolbar>
         </AppBar>
 
         Today's temperature: {JSON.stringify(weather.temp)}°C
-            <Container component="main" maxWidth="xs">
-                <div style={{fontSize: '40px'}} > Products</div>
-                <div>
+            <Container component="main" >
+                <div style={{fontSize: '40px', textAlign: 'center'}} > Products</div>
+                <Box  sx={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gap: 2,
+                }}>
                     {
                         data.map((item, i) => (
-                            <div style={{padding: '20px'}} key={i}>
+                            <Box sx={{
+                                border: 1,
+                                padding: 1,
+                                margin: 1,
+                                borderRadius: 1,
+                                backgroundColor: 'primary.main',
+                                color: 'white', 
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(2, 1fr)',
+                                gap: 2,
+                              }} key={i}>
+                                <Box>
                                 {item.title}
                                 <br></br>
                                 <br></br>
@@ -93,15 +108,18 @@ export default function Product() {
                                 <br></br>
                                 <br></br>
                                 Price: €
-                                {item.price}
+                                {item.price.toFixed(2)}
                                 <br></br>
+                                
+                                </Box>
+                                <Box>
                                 <Image src="/images/box.jpg" alt="Jam Image" width={500} height={300} />
-                                <br></br>
-                                <Button variant="outlined" onClick={() => addToCart(item.title, item.price)}> Add to cart </Button>
-                            </div>
+                                </Box>
+                                <Button variant="outlined" sx={{backgroundColor: 'blue', color: 'white', margin: 1, alignSelf: 'center'}} onClick={() => addToCart(item.title, item.price)}> Add to cart </Button>
+                            </Box>
                         ))
                     }
-                </div>
+                </Box>
             </Container>
       </Box>
     );

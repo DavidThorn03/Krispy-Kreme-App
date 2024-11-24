@@ -1,5 +1,4 @@
 'use client';
-'use client'
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -60,12 +59,12 @@ export default function Register() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Krispy Kreme
             </Typography>
-            <Link href="/register">Register</Link> - 
-            <Link href="/">Login</Link>
+            <Link href="/register" style={{padding: 10}}>Register</Link>
+            <Link href="/" style={{padding: 10}}>Login</Link>
           </Toolbar>
         </AppBar>
             <Box sx={{ height: '100vh' }} >
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{width: '34%', marginLeft: "33%"}}>
                     <TextField
                         margin="normal"
                         required
