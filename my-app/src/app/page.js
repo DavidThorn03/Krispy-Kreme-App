@@ -28,7 +28,7 @@ export default function MyApp() {
 
 	console.log("Sent email:" + email)
 	console.log("Sent pass:" + pass)
-	runDBCallAsync(`http://localhost:3000/api/login?email=${email}&pass=${pass}`)
+	runDBCallAsync(`/api/login?email=${email}&pass=${pass}`)
   }; 
 
   async function runDBCallAsync(url, email) {
@@ -36,7 +36,7 @@ export default function MyApp() {
     const data = await res.json();
     if(data.length > 0){
       console.log("login is valid")
-      await fetch (`http://localhost:3000/api/saveData?email=${data[0].email}&manager=${data[0].manager}`);
+      await fetch (`/api/saveData?email=${data[0].email}&manager=${data[0].manager}`);
       if(data[0].manager){
         console.log("manager")
         window.location="/manager"
