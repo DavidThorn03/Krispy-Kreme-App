@@ -36,7 +36,7 @@ export default function MyApp() {
     const data = await res.json();
     if(data.length > 0){
       console.log("login is valid")
-      await fetch (`/api/saveData?email=${data[0].email}&manager=${data[0].manager}`);
+      await fetch (`https://rich-web-assignment.vercel.app/api/saveData?email=${data[0].email}&manager=${data[0].manager}`);
       if(data[0].manager){
         console.log("manager")
         window.location="/manager"
@@ -91,7 +91,7 @@ export default function MyApp() {
                         required
                         fullWidth
                         name="pass"
-                        label="Pass"
+                        label="Password"
                         type="pass"
                         id="pass"
                         autoComplete="current-password"
