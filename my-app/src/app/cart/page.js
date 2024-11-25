@@ -45,7 +45,7 @@ export default function Cart() {
     };
     const removeCartItem = (id) => {
         console.log("ID is: " + id)
-        runDBCallAsync(`https://rich-web-assignment.vercel.app/api/removeCartItem?id=${id}`)
+        runDBCallAsync(`https://rich-web-assignment.vercel.app/api/removeCartItem?_id=${_id}`)
     }; 
     async function runDBCallAsync(url) {
         const res = await fetch(url);
@@ -102,7 +102,7 @@ export default function Cart() {
                                 <br></br>
                                 </Box>
                                 <Box>
-                                <Button variant="outlined" sx={{backgroundColor: 'blue', color: 'white', margin: 1, alignSelf: 'center'}} onClick={() => removeCartItem(item._id)}> Add to cart </Button>
+                                <Button variant="outlined" sx={{backgroundColor: 'blue', color: 'white', margin: 1, alignSelf: 'center'}} onClick={() => removeCartItem(item._id)}> Remove Item </Button>
                                 </Box>
                             </Box>
                         ))
