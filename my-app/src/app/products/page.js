@@ -110,10 +110,9 @@ export default function Product() {
                                 Price: €
                                 {item.price.toFixed(2)}
                                 <br></br>
-                                
                                 </Box>
                                 <Box>
-                                <Image src="https://rich-web-assignment.vercel.app/images/box.jpg" alt="Jam Image" width={500} height={300} />
+                                <Image src={item.image} alt="Jam Image" width={500} height={300} />
                                 </Box>
                                 <Button variant="outlined" sx={{backgroundColor: 'blue', color: 'white', margin: 1, alignSelf: 'center'}} onClick={() => addToCart(item.title, item.price)}> Add to cart </Button>
                             </Box>

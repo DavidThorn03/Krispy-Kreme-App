@@ -41,15 +41,11 @@ export default function Cart() {
         const products = data.map((item) => item.product)
         runDBCallAsync(`https://rich-web-assignment.vercel.app/api/placeOrder?user=${user.email}&products=${JSON.stringify(products)}&dateTime=${new Date().toISOString()}`)
         runDBCallAsync(`https://rich-web-assignment.vercel.app/api/removeCart?user=${user.email}`)
+        window.location="/products"
     };
     async function runDBCallAsync(url) {
         const res = await fetch(url);
         const data = await res;
-        if(data.data == "valid"){
-            console.log("login is valid!")
-        } else {
-            console.log("not valid ")
-        }
     }
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -84,7 +80,7 @@ export default function Cart() {
                     <div style={{ padding: "20px" }} key={i}>
                         {item.product}
                         <br />
-                        Price: {item.price}
+                        Price: {item.price.toFixed(2)}
                     </div>
                 ))}
                 Order Total: {total}
