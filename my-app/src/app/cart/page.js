@@ -43,8 +43,8 @@ export default function Cart() {
         runDBCallAsync(`https://rich-web-assignment.vercel.app/api/removeCart?user=${user.email}`)
         window.location="/products"
     };
-    const removeCartItem = (id) => {
-        console.log("ID is: " + id)
+    const removeCartItem = (_id) => {
+        console.log("ID is: " + _id)
         runDBCallAsync(`https://rich-web-assignment.vercel.app/api/removeCartItem?_id=${_id}`)
     }; 
     async function runDBCallAsync(url) {
