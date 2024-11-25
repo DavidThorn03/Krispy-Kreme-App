@@ -98,7 +98,7 @@ export default function Cart() {
                                 <br></br>
                                 <br></br>
                                 Price: €
-                                {item.price.toFixed(2)}
+                                {parseInt(item.price).toFixed(2)}
                                 <br></br>
                                 </Box>
                                 <Box>
