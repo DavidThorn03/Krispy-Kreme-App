@@ -43,6 +43,10 @@ export default function Cart() {
         runDBCallAsync(`https://rich-web-assignment.vercel.app/api/removeCart?user=${user.email}`)
         window.location="/products"
     };
+    const removeCartItem = (id) => {
+        console.log("ID is: " + id)
+        runDBCallAsync(`https://rich-web-assignment.vercel.app/api/removeCartItem?id=${id}`)
+    }; 
     async function runDBCallAsync(url) {
         const res = await fetch(url);
         const data = await res;
@@ -76,13 +80,33 @@ export default function Cart() {
                     </Typography>
                 ) : (
             <Box>
-                    {data.map((item, i) => (
-                    <div style={{ padding: "20px" }} key={i}>
-                        {item.product}
-                        <br />
-                        Price: {item.price.toFixed(2)}
-                    </div>
-                ))}
+                    {
+                        data.map((item, i) => (
+                            <Box sx={{
+                                border: 1,
+                                padding: 1,
+                                margin: 1,
+                                borderRadius: 1,
+                                backgroundColor: 'primary.main',
+                                color: 'white', 
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(2, 1fr)',
+                                gap: 2,
+                              }} key={i}>
+                                <Box>
+                                {item.product}
+                                <br></br>
+                                <br></br>
+                                Price: €
+                                {item.price.toFixed(2)}
+                                <br></br>
+                                </Box>
+                                <Box>
+                                <Button variant="outlined" sx={{backgroundColor: 'blue', color: 'white', margin: 1, alignSelf: 'center'}} onClick={() => removeCartItem(item._id)}> Add to cart </Button>
+                                </Box>
+                            </Box>
+                        ))
+                    }
                 Order Total: {total}
                 <Button
                     type="submit"

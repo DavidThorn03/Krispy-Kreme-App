@@ -35,8 +35,15 @@ export default function Checkout() {
             <Link href="/" style={{padding: 10}}>Login</Link>
           </Toolbar>
         </AppBar>
-        <Box sx={{alignContent: 'center'}}>
+        <Box  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center'
+                }}>
             <div style={{fontSize: 50 , textAlign: 'center'}}>Thank you for your order!!</div>
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
             <Button
         	sx={{backgroundColor: 'primary.main', color: 'white', fontSize: 20, padding: 2}}><Link href="/products">Return to products</Link></Button>
         </Box>
