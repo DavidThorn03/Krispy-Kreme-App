@@ -112,7 +112,7 @@ export default function Product() {
                                 <br></br>
                                 </Box>
                                 <Box>
-                                <Image src={item.image} alt="Jam Image" width={500} height={300} />
+                                <Image src={item.image} alt="Jam Image" width={200} height={150} />
                                 </Box>
                                 <Button variant="outlined" sx={{backgroundColor: 'blue', color: 'white', margin: 1, alignSelf: 'center'}} onClick={() => addToCart(item.title, item.price)}> Add to cart </Button>
                             </Box>
