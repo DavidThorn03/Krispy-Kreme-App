@@ -16,7 +16,7 @@ export default function Cart() {
     const [user, setUser] = useState(null)
     const [data, setData] = useState()
     useEffect(() => {
-        fetch(`/api/getData`)
+        fetch(`https://rich-web-assignment.vercel.app/api/getData`)
             .then((res) => res.json())
             .then((user) => {
                 setUser(user)
@@ -24,7 +24,7 @@ export default function Cart() {
     }, [])
     useEffect(() => {
         if (user) {
-            fetch(`/api/getCart?user=${user.email}`)
+            fetch(`https://rich-web-assignment.vercel.app/api/getCart?user=${user.email}`)
                 .then((res) => res.json())
                 .then((data) => {
                     setData(data);
@@ -39,8 +39,8 @@ export default function Cart() {
     const handleSubmit = () => {
         console.log("handling submit");
         const products = data.map((item) => item.product)
-        runDBCallAsync(`/api/placeOrder?user=${user.email}&products=${JSON.stringify(products)}&dateTime=${new Date().toISOString()}`)
-        runDBCallAsync(`/api/removeCart?user=${user.email}`)
+        runDBCallAsync(`https://rich-web-assignment.vercel.app/api/placeOrder?user=${user.email}&products=${JSON.stringify(products)}&dateTime=${new Date().toISOString()}`)
+        runDBCallAsync(`https://rich-web-assignment.vercel.app/api/removeCart?user=${user.email}`)
     };
     async function runDBCallAsync(url) {
         const res = await fetch(url);

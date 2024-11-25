@@ -28,7 +28,7 @@ export default function MyApp() {
 
 	console.log("Sent email:" + email)
 	console.log("Sent pass:" + pass)
-	runDBCallAsync(`/api/login?email=${email}&pass=${pass}`)
+	runDBCallAsync(`https://rich-web-assignment.vercel.app/api/login?email=${email}&pass=${pass}`)
   }; 
 
   async function runDBCallAsync(url, email) {

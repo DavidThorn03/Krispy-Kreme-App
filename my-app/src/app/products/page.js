@@ -20,12 +20,12 @@ export default function Product() {
    
 
     useEffect(() => {
-        fetch('/api/getWeather')
+        fetch('https://rich-web-assignment.vercel.app/api/getWeather')
             .then((res) => res.json())
             .then((weather) => {
                 setWeatherData(weather)
             })
-        fetch('/api/getProducts')
+        fetch('https://rich-web-assignment.vercel.app/api/getProducts')
             .then((res) => res.json())
             .then((data) => {
                 setData(data)
@@ -43,7 +43,7 @@ export default function Product() {
         console.log("Username is: " + user)
         console.log("Product is: " + product)
         console.log("Price is: " + price)
-        runDBCallAsync(`/api/addToCart?user=${user.email}&product=${product}&price=${price}`)
+        runDBCallAsync(`https://rich-web-assignment.vercel.app/api/addToCart?user=${user.email}&product=${product}&price=${price}`)
     }; // end handle submit
     async function runDBCallAsync(url) {
         const res = await fetch(url);
@@ -113,7 +113,7 @@ export default function Product() {
                                 
                                 </Box>
                                 <Box>
-                                <Image src="/images/box.jpg" alt="Jam Image" width={500} height={300} />
+                                <Image src="https://rich-web-assignment.vercel.app/images/box.jpg" alt="Jam Image" width={500} height={300} />
                                 </Box>
                                 <Button variant="outlined" sx={{backgroundColor: 'blue', color: 'white', margin: 1, alignSelf: 'center'}} onClick={() => addToCart(item.title, item.price)}> Add to cart </Button>
                             </Box>

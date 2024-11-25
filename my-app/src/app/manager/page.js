@@ -14,7 +14,7 @@ import Link from 'next/link'
 export default function Manager() {
     const [data, setData] = useState()
     useEffect(() => {
-        fetch('/api/getOrders')
+        fetch('https://rich-web-assignment.vercel.app/api/getOrders')
             .then((res) => res.json())
             .then((data) => {
                 setData(data)
