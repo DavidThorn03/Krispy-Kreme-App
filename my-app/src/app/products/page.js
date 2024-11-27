@@ -48,11 +48,6 @@ export default function Product() {
     async function runDBCallAsync(url) {
         const res = await fetch(url);
         const data = await res;
-        if(data.data == "valid"){
-            console.log("Added to cart")
-        } else {
-            console.log("not valid")
-        }
     }
     return (
 

@@ -39,13 +39,14 @@ export default function Cart() {
     const handleSubmit = () => {
         console.log("handling submit");
         const products = data.map((item) => item.product)
-        runDBCallAsync(`https://rich-web-assignment.vercel.app/api/placeOrder?user=${user.email}&products=${JSON.stringify(products)}&dateTime=${new Date().toISOString()}`)
+        runDBCallAsync(`https://rich-web-assignment.vercel.app/api/placeOrder?user=${user.email}&products=${JSON.stringify(products)}&dateTime=${format.dateTime(new Date(), {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'})}`)
         runDBCallAsync(`https://rich-web-assignment.vercel.app/api/removeCart?user=${user.email}`)
-        window.location="/products"
+        window.location="/checkout"
     };
     const removeCartItem = (_id) => {
         console.log("ID is: " + _id)
         runDBCallAsync(`https://rich-web-assignment.vercel.app/api/removeCartItem?_id=${_id}`)
+        window.location="/cart"
     }; 
     async function runDBCallAsync(url) {
         const res = await fetch(url);
@@ -72,14 +73,18 @@ export default function Cart() {
             <Link href="/" style={{padding: 10}}>Login</Link>
           </Toolbar>
         </AppBar>
-            <Container component="main" maxWidth="xs">
+            <Container component="main" style={{width:"50%"}}>
                 <div style={{fontSize: '40px'}} > Cart </div>
                 {data.length === 0 ? (
                     <Typography variant="body1" color="textSecondary" sx={{ mt: 3 }}>
                         Cart is empty
                     </Typography>
                 ) : (
-            <Box>
+            <Box sx={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gap: 2,
+            }}>
                     {
                         data.map((item, i) => (
                             <Box sx={{
@@ -106,8 +111,10 @@ export default function Cart() {
                                 </Box>
                             </Box>
                         ))
-                    }
-                Order Total: {total}
+        }
+            </Box>
+          )}
+          Order Total: {total}
                 <Button
                     type="submit"
                     fullWidth
@@ -117,8 +124,6 @@ export default function Cart() {
                 >
                 Complete Order
                 </Button>
-            </Box>
-          )}
             </Container>
         </Box>
     );
