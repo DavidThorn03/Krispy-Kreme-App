@@ -8,7 +8,7 @@ export async function GET(req, res) {
     service: 'gmail',
     auth: {
       user: 'davythornton@gmail.com',
-      pass: 'enter app password here'
+      pass: 'enter password here'
     }
   });
   
@@ -27,6 +27,7 @@ export async function GET(req, res) {
     }
   });
 
+  return Response.json({message: 'Email sent'})
 
 }
 

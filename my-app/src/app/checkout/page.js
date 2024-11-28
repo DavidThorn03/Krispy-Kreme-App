@@ -13,7 +13,6 @@ import { WindowOutlined } from '@mui/icons-material';
 
 export default function Checkout() {
     const [user, setUser] = useState(null)
-    const [data, setData] = useState()
   useEffect(() => {
     fetch(`https://rich-web-assignment.vercel.app/api/getData`)
         .then((res) => res.json())
