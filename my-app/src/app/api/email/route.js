@@ -5,15 +5,15 @@ var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'davythornton@gmail.com',
-    pass: 'ibid mkxo fxmo sdzl'
+    pass: 'enter app password here'
   }
 });
 
 var mailOptions = {
   from: 'davythornton@gmail.com',
   to: 'davythornton@gmail.com',
-  subject: 'Sending Email using Node.js',
-  text: 'That was easy!'
+  subject: 'KremeKrispy Order',
+  text: 'Thank you for placing an order with Krispy Kreme. Your order will be ready for collection in 15 minutes.'
 };
 
 transporter.sendMail(mailOptions, function(error, info){
