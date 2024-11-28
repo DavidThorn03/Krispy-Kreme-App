@@ -39,7 +39,7 @@ export default function Cart() {
     const handleSubmit = () => {
         console.log("handling submit");
         const products = data.map((item) => item.product)
-        runDBCallAsync(`https://rich-web-assignment.vercel.app/api/placeOrder?user=${user.email}&products=${JSON.stringify(products)}&dateTime=${format.dateTime(new Date(), {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'})}`)
+        runDBCallAsync(`https://rich-web-assignment.vercel.app/api/placeOrder?user=${user.email}&products=${JSON.stringify(products)}&dateTime=${new Date()}`)
         runDBCallAsync(`https://rich-web-assignment.vercel.app/api/removeCart?user=${user.email}`)
         window.location="/checkout"
     };
