@@ -11,6 +11,7 @@ import Link from 'next/link'
 import { WindowOutlined } from '@mui/icons-material';
 
 export default function Checkout() {
+    fetch('https://rich-web-assignment.vercel.app/api/email')
     return(
     <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
