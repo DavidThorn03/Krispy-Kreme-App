@@ -1,5 +1,7 @@
 var nodemailer = require('nodemailer');
 
+const { searchParams } = new URL(req.url);
+const user = searchParams.get('user');
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -11,7 +13,7 @@ var transporter = nodemailer.createTransport({
 
 var mailOptions = {
   from: 'davythornton@gmail.com',
-  to: 'davythornton@gmail.com',
+  to: user,
   subject: 'KremeKrispy Order',
   text: 'Thank you for placing an order with Krispy Kreme. Your order will be ready for collection in 15 minutes.'
 };

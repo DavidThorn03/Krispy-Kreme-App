@@ -8,10 +8,24 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
 import Link from 'next/link'
+import {useState, useEffect} from 'react';
 import { WindowOutlined } from '@mui/icons-material';
 
 export default function Checkout() {
-    fetch('https://rich-web-assignment.vercel.app/api/email')
+    const [user, setUser] = useState(null)
+    const [data, setData] = useState()
+  useEffect(() => {
+    fetch(`https://rich-web-assignment.vercel.app/api/getData`)
+        .then((res) => res.json())
+        .then((user) => {
+            setUser(user)
+        })
+}, [])
+useEffect(() => {
+  if (user) {
+      fetch(`https://rich-web-assignment.vercel.app/api/email?user=${user.email}`);
+  }
+}, [user]);
     return(
     <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
