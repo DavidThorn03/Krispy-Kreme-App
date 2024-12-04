@@ -15,6 +15,11 @@ export async function GET(req, res) {
     console.log(email);
     console.log(pass);
     console.log(eircode);
+
+    const bcrypt = require('bcrypt');
+    const saltRounds = 10;
+    const hash = bcrypt.hashSync(pass, saltRounds);
+
     const { MongoClient } = require('mongodb');
     const url = process.env.DB_ADDRESS
 
@@ -31,7 +36,7 @@ export async function GET(req, res) {
         return Response.json({ "data":"invalid" })
     }
     else{
-        const input = await collection.insertOne({ email : email, password : pass, name : name, eircode : eircode, manager : manager, tel : tel });
+        const input = await collection.insertOne({ email : email, password : hash, name : name, eircode : eircode, manager : manager, tel : tel });
         console.log(`A document was inserted with the _id: ${input.insertedId}`);
         return Response.json({ "data":"valid" })
     }

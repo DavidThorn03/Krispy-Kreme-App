@@ -1,0 +1,2 @@
+Vercel: https://rich-web-assignment.vercel.app/
+GitHub: https://github.com/DavidThorn03/RichWeb-Assignment.git

@@ -19,19 +19,19 @@ export default function MyApp() {
    	 
    	 console.log("handling submit");
 
-	 event.preventDefault();
+	    event.preventDefault();
  
    	 const data = new FormData(event.currentTarget);
 
-	let email = data.get('email')
-   	let pass = data.get('pass')
+	    let email = data.get('email')
+   	  let pass = data.get('pass')
 
-	console.log("Sent email:" + email)
-	console.log("Sent pass:" + pass)
-	runDBCallAsync(`https://rich-web-assignment.vercel.app/api/login?email=${email}&pass=${pass}`)
+	    console.log("Sent email:" + email)
+	    console.log("Sent pass:" + pass)
+	    runDBCallAsync(`https://rich-web-assignment.vercel.app/api/login?email=${email}&pass=${pass}`)
   }; 
 
-  async function runDBCallAsync(url, email) {
+  async function runDBCallAsync(url) {
     const res = await fetch(url);
     const data = await res.json();
     if(data.length > 0){
