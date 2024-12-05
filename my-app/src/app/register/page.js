@@ -57,7 +57,7 @@ export default function Register() {
         console.log("Sent eircode:" + eircode)
         console.log("Sent tel:" + tel)
         console.log("calling db");
-        runDBCallAsync(`https://rich-web-assignment.vercel.app/api/login?email=${email}&pass=${pass}&name=${name}&eircode=${eircode}&tel=${tel}`)
+        runDBCallAsync(`https://rich-web-assignment.vercel.app/api/register?email=${email}&pass=${pass}&name=${name}&eircode=${eircode}&tel=${tel}`)
       }
   }; 
     async function runDBCallAsync(url, email) {
