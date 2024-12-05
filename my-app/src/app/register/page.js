@@ -11,26 +11,55 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import Link from 'next/link'
+import {useState} from 'react';
 import { WindowOutlined } from '@mui/icons-material';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 export default function Register() {
-    const handleSubmit = (event) => {
-        console.log("handling submit");
-        event.preventDefault();
+    const [errorMessage, setErrorMessage] = useState("");
+  const [open, setOpen] = React.useState(false);
+  const [errorHolder, setErrorHolder] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleSubmit = (event) => {
+
+    console.log("handling submit");
+
+    event.preventDefault();
+
+    let errorMessage = validateForm(event);
+    setErrorHolder(errorMessage)
+
+    if(errorMessage.length > 0){
+      handleClickOpen();
+    } else {
         const data = new FormData(event.currentTarget);
-        let name = data.get('name')
+
         let email = data.get('email')
-        email = email.toLowerCase()
         let pass = data.get('pass')
-        let tel = data.get('tel')
+        let name = data.get('name')
         let eircode = data.get('eircode')
-        console.log("Sent name:" + name)
+        let tel = data.get('tel')
+
         console.log("Sent email:" + email)
         console.log("Sent pass:" + pass)
-        console.log("Sent tel:" + tel)
+        console.log("Sent name:" + name)
         console.log("Sent eircode:" + eircode)
-        runDBCallAsync(`https://rich-web-assignment.vercel.app/api/register?name=${name}&email=${email}&pass=${pass}&tel=${tel}&eircode=${eircode}`, email)
-    }; // end handle submit
+        console.log("Sent tel:" + tel)
+        console.log("calling db");
+        runDBCallAsync(`https://rich-web-assignment.vercel.app/api/login?email=${email}&pass=${pass}&name=${name}&eircode=${eircode}&tel=${tel}`)
+      }
+  }; 
     async function runDBCallAsync(url, email) {
         const res = await fetch(url);
         const data = await res.json();
@@ -43,6 +72,18 @@ export default function Register() {
             console.log("not valid")
         }
     }
+    const validateForm = (event) => {
+        let errorMessage = '';
+        const data = new FormData(event.currentTarget);
+        let email = data.get('email')
+        var validator = require("email-validator");
+        let emailCheck = validator.validate(email);
+        console.log("email status" + emailCheck);
+        if(emailCheck == false){
+          errorMessage += 'Incorrect email';
+        }
+        return errorMessage;
+      }
     return (
         <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
@@ -90,7 +131,7 @@ export default function Register() {
                         fullWidth
                         name="pass"
                         label="Password"
-                        type="pass"
+                        type="password"
                         id="pass"
                         autoComplete="current-password"
                     />
@@ -126,7 +167,30 @@ export default function Register() {
                     </Button>
                 </Box>
             </Box>
+            <React.Fragment>
+                <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">
+                    {"Error"}
+                    </DialogTitle>
+                    <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                    {errorHolder}
+                    </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+            
+                    <Button onClick={handleClose} autoFocus>
+                        Close
+                    </Button>
+                    </DialogActions>
+                </Dialog>
+            </React.Fragment>
         </Box>
-    ); // end return
+    ); 
 }
 
