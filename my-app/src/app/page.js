@@ -71,7 +71,12 @@ export default function MyApp() {
   async function runDBCallAsync(url) {
     const res = await fetch(url);
     const data = await res.json();
-    if(data.length > 0){
+    if(data.data == "invalid"){ 
+      console.log("not valid")
+      setErrorHolder("Invalid login")
+      handleClickOpen();
+    }
+    else{
       console.log("login is valid")
       await fetch (`https://rich-web-assignment.vercel.app/api/saveData?email=${data[0].email}&manager=${data[0].manager}`);
       if(data[0].manager){
@@ -82,9 +87,6 @@ export default function MyApp() {
       console.log("saved data")
       window.location="/products"
       }
-    } else {
-      console.log("not valid")
-      setErrorMessage("Invalid login")
     }
   }
 

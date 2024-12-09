@@ -17,6 +17,10 @@ export async function GET(req, res) {
     const collection = db.collection('User');
     const findResult = await collection.find({ email : email }).toArray();
     console.log('Found documents =>', findResult);
+    if(findResult.length == 0){
+        console.log("email not found");
+        return Response.json({data: "invalid"});
+    }
     console.log(findResult[0].password);
     const bcrypt = require('bcrypt');
     let hashResult = bcrypt.compareSync(pass, findResult[0].password); // true
@@ -24,7 +28,7 @@ export async function GET(req, res) {
 
     console.log("checking " + findResult[0].password);
     console.log("Hash Comparison Result " + hashResult);
-    if(findResult.length > 0 && hashResult){
+    if(hashResult){
         console.log("login valid")
         return Response.json(findResult);
     } else {
