@@ -76,11 +76,35 @@ export default function Register() {
         let errorMessage = '';
         const data = new FormData(event.currentTarget);
         let email = data.get('email')
-        var validator = require("email-validator");
-        let emailCheck = validator.validate(email);
-        console.log("email status" + emailCheck);
-        if(emailCheck == false){
-          errorMessage += 'Incorrect email';
+        let pass = data.get('pass')
+        let name = data.get('name')
+        let eircode = data.get('eircode')
+        let tel = data.get('tel')
+        if(!email || email.trim().length === 0){
+            errorMessage += 'Email is required';
+        }
+        else if(!pass || pass.trim().length === 0){
+            errorMessage += 'Password is required';
+        }
+        else if(!name || name.trim().length === 0){
+            errorMessage += 'Name is required';
+        }
+        else if(!eircode || eircode.trim().length === 0){
+            errorMessage += 'Eircode is required';
+        }
+        else if(!tel || tel.trim().length === 0){
+            errorMessage += 'Telephone number is required';
+        }
+        else if(tel > 9999999999){
+            errorMessage += 'Telephone number is too long';
+        }
+        else {
+            var validator = require("email-validator");
+            let emailCheck = validator.validate(email);
+            console.log("email status" + emailCheck);
+            if(emailCheck == false){
+                errorMessage += 'Incorrect email';
+            }
         }
         return errorMessage;
       }
@@ -114,6 +138,7 @@ export default function Register() {
                         label="Full Name"
                         name="name"
                         autoComplete="name"
+                        inputProps={{ maxLength: 40 }}
                         autoFocus
                     />
                     <TextField
@@ -124,6 +149,7 @@ export default function Register() {
                         label="Email Address"
                         name="email"
                         autoComplete="email"
+                        inputProps={{ maxLength: 40 }}
                     />
                     <TextField
                         margin="normal"
@@ -134,6 +160,7 @@ export default function Register() {
                         type="password"
                         id="pass"
                         autoComplete="current-password"
+                        inputProps={{ maxLength: 40 }}
                     />
                     <TextField
                         margin="normal"
@@ -143,6 +170,7 @@ export default function Register() {
                         label="Eircode"
                         name="eircode"
                         autoComplete="current-eircode"
+                        inputProps={{ maxLength: 7 }}
                     />
                     <TextField
                         margin="normal"
@@ -151,6 +179,7 @@ export default function Register() {
                         id="tel"
                         label="Telephone number"
                         name="tel"
+                        type="number"
                         autoComplete="current-tel"
                     />
                     <FormControlLabel

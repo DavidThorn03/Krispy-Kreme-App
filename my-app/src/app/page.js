@@ -59,11 +59,21 @@ export default function MyApp() {
     let errorMessage = '';
     const data = new FormData(event.currentTarget);
     let email = data.get('email')
-    var validator = require("email-validator");
-    let emailCheck = validator.validate(email);
-    console.log("email status" + emailCheck);
-    if(emailCheck == false){
-      errorMessage += 'Incorrect email';
+    let pass = data.get('pass')
+    if(!email || email.trim().length === 0){
+      errorMessage += 'Email is required';
+    }
+    else if(!pass || pass.trim().length === 0){
+      errorMessage += 'Password is required';
+    }
+    else {
+      console.log("email:" + email)
+      var validator = require("email-validator");
+      let emailCheck = validator.validate(email);
+      console.log("email status" + emailCheck);
+      if(emailCheck == false){
+        errorMessage += 'Incorrect email';
+      }
     }
     return errorMessage;
   }
@@ -122,6 +132,8 @@ export default function MyApp() {
                         label="Email Address"
                         name="email"
                         autoComplete="email"
+                        type="email"
+                        inputProps={{ maxLength: 40 }}
                         autoFocus
                         textcolor="white"
                     />
@@ -132,6 +144,8 @@ export default function MyApp() {
                         name="pass"
                         label="Password"
                         type="password"
+                        inputProps={{ maxLength: 40 }}
+
                         id="pass"
                         autoComplete="current-password"
                     />
