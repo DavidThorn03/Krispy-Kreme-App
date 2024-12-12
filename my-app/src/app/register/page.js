@@ -18,6 +18,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import escapeHTML from 'escape-html';
 
 export default function Register() {
     const [errorMessage, setErrorMessage] = useState("");
@@ -45,11 +46,11 @@ export default function Register() {
     } else {
         const data = new FormData(event.currentTarget);
 
-        let email = data.get('email')
-        let pass = data.get('pass')
-        let name = data.get('name')
-        let eircode = data.get('eircode')
-        let tel = data.get('tel')
+        let email = escapeHTML(data.get('email'))
+        let pass = escapeHTML(data.get('pass'))
+        let name = escapeHTML(data.get('name'))
+        let eircode = escapeHTML(data.get('eircode'))
+        let tel = escapeHTML(data.get('tel'))
 
         console.log("Sent email:" + email)
         console.log("Sent pass:" + pass)

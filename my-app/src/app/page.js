@@ -16,6 +16,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import escapeHTML from 'escape-html';
 
  
 export default function MyApp() {
@@ -45,8 +46,8 @@ export default function MyApp() {
     } else {
         const data = new FormData(event.currentTarget);
 
-        let email = data.get('email')
-        let pass = data.get('pass')
+        let email = escapeHTML(data.get('email'))
+        let pass = escapeHTML(data.get('pass'))
 
         console.log("Sent email:" + email)
         console.log("Sent pass:" + pass)
