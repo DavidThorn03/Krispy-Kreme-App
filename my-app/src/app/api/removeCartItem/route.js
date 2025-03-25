@@ -2,6 +2,8 @@ const {ObjectId} = require('mongodb');
 
 export async function GET(req, res) {
     console.log("in the api page")
+    var dotenv = require('dotenv');
+    dotenv.config();
     const { searchParams } = new URL(req.url)
     const _id = new ObjectId(searchParams.get('_id'));
     console.log(_id);

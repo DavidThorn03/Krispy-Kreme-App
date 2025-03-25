@@ -1,5 +1,7 @@
 export async function GET(req, res) {
     console.log("in the api page")
+    var dotenv = require('dotenv');
+    dotenv.config();
     const { searchParams } = new URL(req.url)
     const email = searchParams.get('email')
     const pass = searchParams.get('pass')

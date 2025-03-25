@@ -2,6 +2,8 @@ export async function GET(req, res) {
     // Make a note we are on
     // the api. This goes to the console.
         console.log("in the api page")
+        var dotenv = require('dotenv');
+        dotenv.config();
     // =================================================
         const { MongoClient } = require('mongodb');
         const url = process.env.DB_ADDRESS
