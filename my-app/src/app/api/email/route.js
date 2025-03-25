@@ -3,12 +3,14 @@ export async function GET(req, res) {
 
   const { searchParams } = new URL(req.url);
   const user = searchParams.get('user');
+  var dotenv = require('dotenv');
+  dotenv.config();
   
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'davythornton@gmail.com',
-      pass: 'enter password here'
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD
     }
   });
   
