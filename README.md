@@ -1,6 +1,6 @@
 # Krispy Kreme
  
-https://rich-web-assignment.vercel.app/
+https://krispy-kreme-app-beige.vercel.app/
 
 This project was completed for the Rich Web Applications module
 
